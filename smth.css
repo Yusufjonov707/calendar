@@ -1,0 +1,93 @@
+
+.today_events {
+    width: 20;
+    background-color: rgb(55, 88, 45);
+    color: gold;
+    position: relative;
+    right:10px;
+    font-size: 12px;
+    top: -10px;
+    width: 20px;
+    height:  20px;
+    border-bottom-right-radius: 10px;
+}
+#calendar_footer li{
+    text-align: center;
+    list-style: none;
+}
+#colendar {
+    width: 700px;
+    margin: auto;
+    background-color: rgb(194, 223, 216);
+}
+#calendar_header input , select{
+color: gold;
+background-color: lightslategrey;               
+}
+#calendar_header {
+text-align: center;
+font-weight: border;
+margin-top: 30px;
+}
+tr:nth-child(2) th{ 
+     text-align: center;
+     color:gold;
+    font-size: 15px;
+    background-color: lightgray;
+    }
+ td {
+        text-align: center;
+    }
+tr:first-child th{
+       text-align: center;
+     background-color:darkgreen;
+     color:gold;
+    font-size: 30px;
+}
+body{
+    background-image: url("<?php  echo $body_bg ?>");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+::placeholder {
+  color: gold;
+} 
+.Time_label {
+    width: 246px;
+    height: 50px ;
+    background-color:darkgreen;
+    color: gold;
+    font-size: 20px;
+    padding-top: -40px;
+    position: relative;
+    top: -11px;
+}
+.time_table {
+    width: 250px;
+    height: auto ;
+    background-color:  rgb(194, 223, 216);
+    font-family: cursive;
+    font-size: 30px;
+    border: 2px solid black; 
+    position: absolute;
+    top:80%;
+    left: 80%;
+    text-align: center;
+}
+td:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+    color: darkred;
+}
+td {
+    text-align: center;
+    font-size: 30px;
+    font-weight: border;
+    background-color: darkseagreen;
+}
+.today_class {
+    background-color: lightseagreen;;
+    color: black;
+    font-weight: 600;
+}
