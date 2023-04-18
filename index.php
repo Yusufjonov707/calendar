@@ -216,7 +216,7 @@
         </div>
     </div>
     <div class="time_table">
-        <label class="Time_label">Time in <?php echo $area ?></label><br>
+        <label class="Time_label">Time in <?php echo $area ?></label><br><br
         <?php date_default_timezone_set($area);
         echo date('h:i:sa'); ?>
     </div>
