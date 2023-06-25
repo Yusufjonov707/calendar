@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Colendar</title>
+    <title>My Calendar</title>
     <link rel="stylesheet" href="smth.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-    <script src="/js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
   <?php
@@ -53,16 +53,19 @@
         $season_name = 'fall';
         $body_bg = "../onlyimg/fall.jpg";
     };
-    #############################Database##########################
-    require_once 'database.php';
-    $conn = new \Database\database('myitedu');
-    if ($month < 10) {
+
+    // DATABASE START
+
+   // require_once 'database.php';
+    $mysql = new  mysqli("127.0.0.1", "root", "", "baxodir");
+   if ($month <= 12) {
         $mymonth = "0" . $month;
         $mymonth = "0" . $month;
     }
-    $sql = "SELECT * FROM events WHERE event_date LIKE '%$year-$mymonth%';;";
-    $events = $conn->sql($sql);
-    ###############################################################
+    $sql = "SELECT * FROM events WHERE event_date LIKE '%$year-$mymonth%';";
+    $events = $mysql->query($sql);
+
+    // END DATABASE
 
     $today_date = date('d');
     $last_day = date('t', strtotime("$month/$today_date/$year"));
@@ -105,7 +108,6 @@
         $date = date('d', strtotime($event['event_date']));
         $date = (int) $date;
         $days[$date][] = $event;
-        $event_titles[$date][] = $event['title'] ?? null;
     }
     ?>
     <div id="colendar" data-month="<?php echo $month; ?>" data-year="<?php echo $year ?>">
@@ -170,9 +172,6 @@
                         $total_events = $holidays['Uzbeksitan'][$month][$counter2] ?? [];
 
 
-
-
-
                         if (isset($total_events)) {
                             $total_events2 = $days[$counter2] ?? [];
                             $show_holiday = count($total_events) + count($total_events2);
@@ -180,7 +179,7 @@
                             $show_holiday = 0;
                         }
                         if ($show_holiday) {
-                            echo "<td $today_class_name><div  data-clicked='no' data-month='$month' data-year='$year' data-date='$counter2'  class='today_events'>$show_holiday</div>$counter2</td >";
+                            echo "<td $today_class_name><div  data-clicked='no' data-month='$month' data-year='$year' data-date='$counter2'  class='today_events'></div>$counter2</td >";
                         } else {
                             echo "<td $today_class_name></div>$counter2</td >";
                         }
@@ -216,7 +215,7 @@
         </div>
     </div>
     <div class="time_table">
-        <label class="Time_label">Time in <?php echo $area ?></label><br><br
+        <label class="Time_label">Time in <?php echo $area ?></label><br>
         <?php date_default_timezone_set($area);
         echo date('h:i:sa'); ?>
     </div>
@@ -227,103 +226,91 @@
             background-attachment: fixed;
             background-size: cover;
         }
-
-        td {
-            text-align: center;
-            font-size: 30px;
-            font-weight: border;
-            background-color: darkseagreen;
-        }
-
-        .today_class {
-            background-color: lightseagreen;
-            color: black;
-            font-weight: 600;
-        }
     </style>
     <script>
-        $(function() {
+        
+    $(function() {
 
-            var clicked_today_event = false;
+var clicked_today_event = false;
 
-            $(".active_days").click(function() {
-                var day = $(this).text();
-                var month = $("#calendar").data("month");
-                var year = $("#calendar").data("year");
-                var clicked = $(this).children('.today_events').data('clicked');
-                $("#calendar_modal").modal("hide");
-
-
-                if (typeof clicked == 'undefined' && clicked != 'no') {
-                    $("#calendar_modal").modal("show");
-                }
-
-                console.error(clicked);
+$(".active_days").click(function() {
+    var day = $(this).text();
+    var month = $("#calendar").data("month");
+    var year = $("#calendar").data("year");
+    var clicked = $(this).children('.today_events').data('clicked');
+    $("#calendar_modal").modal("hide");
 
 
-                if (month < 9) {
-                    month = '0' + month;
-                }
-                if (day < 10) {
-                    day = '0' + day;
-                }
-                var display_date = year + '-' + month + '-' + day;
-                $("#calendar_modal_day").val(display_date);
-                // $(this).children('.today_events').data('clicked','no');
-            });
+    if (typeof clicked == 'undefined' && clicked != 'no') {
+        $("#calendar_modal").modal("show");
+    }
 
-            $(document).on("click", "#btn_save_events", function() {
-                var calendar_modal_title = $("#calendar_modal_title").val();
-                var calendar_modal_day = $("#calendar_modal_day").val();
-                var calendar_modal_time = $("#calendar_modal_time").val();
-                if (calendar_modal_title.length < 3) {
-                    alert("Your event title is too short");
-                    return false;
-                }
-                if (calendar_modal_day.length < 3) {
-                    alert("You must enter correct date");
-                    return false;
-                }
-                if (calendar_modal_time.length < 3) {
-                    alert("You must enter correct time");
-                    return false;
-                }
+    console.error(clicked);
 
-                var parms = {
-                    'event_title': calendar_modal_title,
-                    'event_day': calendar_modal_day,
-                    'event_time': calendar_modal_time,
-                    'action': 'create'
-                };
-                var api = $.post('backend.php', parms, function(response) {
-                    document.location = '/korea/bahodir/newprojects';
-                });
 
-            });
+    if (month < 9) {
+        month = '0' + month;
+    }
+    if (day < 10) {
+        day = '0' + day;
+    }
+    var display_date = year + '-' + month + '-' + day;
+    $("#calendar_modal_day").val(display_date);
+    $(this).children('.today_events').data('clicked','no');
+});
 
-            $(document).on("click", ".today_events", function() {
-                clicked_today_event = true;
-                $("#calendar_modal").modal("hide");
-                var m = $(this).data('month');
-                var d = $(this).data('date');
-                var y = $(this).data('year');
+$(document).on("click", "#btn_save_events", function() {
+    var calendar_modal_title = $("#calendar_modal_title").val();
+    var calendar_modal_day = $("#calendar_modal_day").val();
+    var calendar_modal_time = $("#calendar_modal_time").val();
+    if (calendar_modal_title.length < 3) {
+        alert("Your event title is too short");
+        return false;
+    }
+    if (calendar_modal_day.length < 3) {
+        alert("You must enter correct date");
+        return false;
+    }
+    if (calendar_modal_time.length < 3) {
+        alert("You must enter correct time");
+        return false;
+    }
 
-                var clicked = $(this).data('clicked');
-                var parms = {
-                    'm': m,
-                    'd': d,
-                    'y': y,
-                    'action': 'fetch'
-                };
-                var api = $.post('backend.php', parms, function(response) {
-                    $("#calendar_modal2").modal("show");
-                    $(".modal-body2").html(response);
-                });
-                $(this).data('clicked', 'no');
-                //$("#calendar_modal2").modal("show");
+    var parms = {
+        'event_title': calendar_modal_title,
+        'event_day': calendar_modal_day,
+        'event_time': calendar_modal_time,
+        'action': 'create'
+    };
+    var api = $.post('backend.php', parms, function(response) {
+        document.location = '/korea/bahodir/newprojects';
+    });
 
-            });
-        });
+});
+
+$(document).on("click", ".today_events", function() {
+    clicked_today_event = true;
+    $("#calendar_modal").modal("hide");
+    var m = $(this).data('month');
+    var d = $(this).data('date');
+    var y = $(this).data('year');
+
+    var clicked = $(this).data('clicked');
+    var parms = {
+        'm': m,
+        'd': d,
+        'y': y,
+        'action': 'fetch'
+    };
+    var api = $.post('backend.php', parms, function(response) {
+        $("#calendar_modal2").modal("show");
+        $(".modal-body2").html(response);
+    });
+    $(this).data('clicked', 'no');
+    $("#calendar_modal2").modal("show");
+
+});
+});
     </script>
 </body>
 

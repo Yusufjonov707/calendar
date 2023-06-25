@@ -13,7 +13,7 @@ class Backend
 
     public function __construct()
     {
-        $this->db = new database("myitedu");
+        $this->db = new database("baxodir");
         $this->parms = $_POST;
       
     }
@@ -90,12 +90,5 @@ class Backend
     {
         return FALSE;
     }
-}
-$backend = new Backend();
-if ($backend->parms['action'] == 'create') {
-    echo $backend->createEvent();
-}
-if ($backend->parms['action'] == 'fetch') {
-    echo $backend->fetchEvents();
 }
 ?>

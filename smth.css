@@ -1,14 +1,8 @@
-
 .today_events {
-    width: 20;
+    height: 3px;
     background-color: rgb(55, 88, 45);
     color: gold;
-    position: relative;
-    right:10px;
     font-size: 12px;
-    top: -10px;
-    width: 20px;
-    height:  20px;
     border-bottom-right-radius: 10px;
 }
 #calendar_footer li{
@@ -21,19 +15,19 @@
     background-color: rgb(194, 223, 216);
 }
 #calendar_header input , select{
-color: gold;
-background-color: lightslategrey;               
+    color: gold;
+    background-color: lightslategrey;               
 }
 #calendar_header {
-text-align: center;
-font-weight: border;
-margin-top: 30px;
+    text-align: center;
+    font-weight: border;
+    margin-top: 30px;
 }
 tr:nth-child(2) th{ 
      text-align: center;
      color:gold;
     font-size: 15px;
-    background-color: lightgray;
+    background-color: rgb(58, 151, 93);
     }
  td {
         text-align: center;
@@ -49,9 +43,6 @@ body{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-}
-::placeholder {
-  color: gold;
 } 
 .Time_label {
     width: 246px;
@@ -76,18 +67,18 @@ body{
     text-align: center;
 }
 td:hover {
-    background-color: aquamarine;
     cursor: pointer;
     color: darkred;
 }
 td {
+    width: 40px !important;
     text-align: center;
     font-size: 30px;
     font-weight: border;
-    background-color: darkseagreen;
+    background-color: rgb(99, 177, 140);
 }
 .today_class {
-    background-color: lightseagreen;;
+    background-color: rgb(25, 158, 149) !important;
     color: black;
     font-weight: 600;
 }

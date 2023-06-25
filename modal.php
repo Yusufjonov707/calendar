@@ -11,13 +11,13 @@ $today_date = "2021-04-22"
             </div>
             <div class="modal-body">
                 <form>
-                    <p>Title: <input id="calendar_modal_title" required name="title" placeholder="Your Event Title" type="text"></p>
-                    <p>Description: <br><textarea id="calendar_modal_description" required name="description" placeholder="Your Event Description">
+                    <p>Title: <input class="form-control" id="calendar_modal_title" required name="title" placeholder="Your Event Title" type="text"></p>
+                    <p>Description: <input class="form-control" id="calendar_modal_description" required name="description" placeholder="Your Event Description">
 
                         </textarea></p>
-                    <p>Date: <input required id="calendar_modal_day" type="date" value="<?php echo $today_date;?>">
+                    <p>Date: <input class="form-control" required id="calendar_modal_day" type="date" value="<?php echo $today_date;?>">
                     </p>
-                    <p>Time: <input id="calendar_modal_time" required type="time"></p>
+                    <p>Time: <input class="form-control" id="calendar_modal_time" required type="time"></p>
                 </form>
             </div>
             <div class="modal-footer">
